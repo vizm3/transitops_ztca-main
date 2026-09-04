@@ -1,0 +1,438 @@
+# TransitOps with Zero Trust Continuous Authorization (ZTCA)
+### Enterprise Fleet Management Secured by the Zero Trust Exchange
+
+TransitOps is a full-stack Smart Fleet Operations and Transport Management platform engineered from the ground up with a native **Zero Trust Continuous Authorization (ZTCA)** security engine. Rather than relying on outdated perimeter security or static "authenticate-once-at-login" models, TransitOps enforces strict, per-request contextual verification, dynamic risk assessment, and continuous policy enforcement across all operational flows (vehicle management, driver onboarding, trip dispatch, maintenance scheduling, and financial ledgers).
+
+---
+
+## 📑 Table of Contents
+1. [An Overview of Zero Trust](#1-an-overview-of-zero-trust)
+2. [Connecting to the Zero Trust Exchange](#2-connecting-to-the-zero-trust-exchange)
+3. [The 7 Pillars / Elements of ZTCA Compliance](#3-the-7-pillars--elements-of-ztca-compliance)
+   - [Section 1 — Verify](#section-1--verify)
+     - [Element 1: Who is connecting?](#element-1-who-is-connecting)
+     - [Element 2: What are the attributes?](#element-2-what-are-the-attributes)
+     - [Element 3: Where is the connection going?](#element-3-where-is-the-connection-going)
+   - [Section 2 — Control](#section-2--control)
+     - [Element 4: Assess risk using context](#element-4-assess-risk-using-context)
+     - [Element 5: Prevent compromise](#element-5-prevent-compromise)
+     - [Element 6: Prevent data loss](#element-6-prevent-data-loss)
+   - [Section 3 — Enforce](#section-3--enforce)
+     - [Element 7: Enforce policy](#element-7-enforce-policy)
+4. [End-to-End Operational Flows & Architecture Diagrams](#4-end-to-end-operational-flows--architecture-diagrams)
+   - [Zero Trust Exchange Pipeline Diagram](#zero-trust-exchange-pipeline-diagram)
+   - [Request Interception & Authorization Flow (Sequence)](#request-interception--authorization-flow-sequence)
+   - [Role-to-Privilege Mapping & Access Matrix](#role-to-privilege-mapping--access-matrix)
+   - [Step-Up MFA & Threat Interception Flow](#step-up-mfa--threat-interception-flow)
+5. [Recent Platform Updates & New Features](#5-recent-platform-updates--new-features)
+6. [API Route Specifications & Privilege Mapping](#6-api-route-specifications--privilege-mapping)
+7. [Deployable Setup & Installation Guide](#7-deployable-setup--installation-guide)
+
+---
+
+## 1. An Overview of Zero Trust
+
+Traditional enterprise transport and ERP architectures rely on **implicit trust**: once a user logs into the corporate VPN or portal, they are granted broad access across databases, vehicle tracking systems, driver records, and financial accounting. If an employee's credentials are stolen or a mobile device is hijacked on an untrusted network, an attacker can modify dispatch manifests, exfiltrate private driver documents, or tamper with financial expense records.
+
+**Zero Trust eliminates implicit trust entirely.** Operating under the principle of **"Never Trust, Always Verify,"** TransitOps continuously authenticates and authorizes every transaction at the application layer. Identity is not just a static JWT or session cookie; it is evaluated along with:
+- The device posture and fingerprint.
+- The geographic origin and physical depot boundaries.
+- Temporal anomalies (standard business shift vs. off-hours).
+- The sensitivity of the destination resource.
+
+---
+
+## 2. Connecting to the Zero Trust Exchange
+
+In TransitOps, the **Zero Trust Exchange** acts as a unified software-defined security broker between the client frontend (React SPA) and protected backend services (Express REST APIs).
+
+```
+   ┌────────────────────────────────────────────────────────┐
+   │             Client Request (User / Device)             │
+   └───────────────────────────┬────────────────────────────┘
+                               │ HTTP Request + Context Headers
+                               ▼
+   ┌────────────────────────────────────────────────────────┐
+   │             ZERO TRUST EXCHANGE (ZTCA ENGINE)          │
+   │                                                        │
+   │  ┌─────────────────┐ ┌─────────────────┐ ┌──────────┐ │
+   │  │ SECTION 1       │ │ SECTION 2       │ │SECTION 3 │ │
+   │  │ VERIFY          │ │ CONTROL         │ │ENFORCE   │ │
+   │  │ • Element 1: Who│ │ • Element 4: Risk││ • Element7│ │
+   │  │ • Element 2: Attr││ • Element 5: Comp││   Policy │ │
+   │  │ • Element 3: Dest││ • Element 6: DLP ││   Decision││
+   │  └─────────────────┘ └─────────────────┘ └──────────┘ │
+   └───────────────────────────┬────────────────────────────┘
+                               │
+               ┌───────────────┼───────────────┬──────────────┐
+               ▼               ▼               ▼              ▼
+           [ ALLOW ]      [ STEP_UP ]    [ READ_ONLY ]    [ BLOCK ]
+               │               │               │              │
+        Pass to Route     Trigger MFA     Downgrade to    403 Forbidden
+        Target Handler    PIN Challenge   Non-Destructive + Audit Log
+```
+
+---
+
+## 3. The 7 Pillars / Elements of ZTCA Compliance
+
+TransitOps implements and satisfies all **7 Elements** across the 3 core Zero Trust functional sections:
+
+```
+===================================================================================
+ SECTION 1: VERIFY
+===================================================================================
+ [✔] Element 1: Who is connecting?       -> Identity, Role Segmentation & Session Assertion
+ [✔] Element 2: What are the attributes? -> Device Fingerprint, Geolocation & Time Windows
+ [✔] Element 3: Where is it going?       -> Route Sensitivity & Dynamic Privilege Derivation
+===================================================================================
+ SECTION 2: CONTROL
+===================================================================================
+ [✔] Element 4: Assess risk with context -> 0-100 Dynamic Risk Engine with Compounding Weights
+ [✔] Element 5: Prevent compromise       -> Step-Up MFA, Rogue Device Lock, Universal Cap
+ [✔] Element 6: Prevent data loss (DLP)  -> Financial Read-Only Downgrade & Data Integrity
+===================================================================================
+ SECTION 3: ENFORCE
+===================================================================================
+ [✔] Element 7: Enforce policy           -> Real-Time PDP/PEP, Immutable Audit Trail & UI
+===================================================================================
+```
+
+### Section 1 — Verify
+
+#### Element 1: Who is connecting?
+* **Implementation**: `backend/ztca/middleware.ts` & `src/types.ts`
+* **How it is Satisfied**:
+  - The system authenticates user identity on every request using verified request identity headers (`x-ztca-user-id`, `x-ztca-user-name`, `x-ztca-user-role`, and email).
+  - Explicit segmentation into **6 distinct user roles**:
+    1. `Admin` (Security policies, audit logs, device trust, full platform control)
+    2. `Fleet Manager` (Vehicle records, dispatch schedules, driver allocation)
+    3. `Driver` (Assigned trip status updates, personal driving metrics, fuel logs)
+    4. `Safety Officer` (Driver licenses, compliance scores, maintenance tickets)
+    5. `Financial Analyst` (Operating expenses, fuel economy, capital costs, ROI)
+    6. `System` (Automated batch triggers, audit logging actor)
+  - If a user claims an unauthorized role or an unrecognized identity, the request is flagged with an immediate privilege penalty.
+
+#### Element 2: What are the attributes?
+* **Implementation**: `backend/ztca/engine.ts` & `backend/ztca/store.ts` (`ZTCADeviceRepository`, `ZTCALocationRepository`)
+* **How it is Satisfied**:
+  - **Device Posture & Fingerprint**: Inspects `deviceId`, `deviceBrowser`, and `deviceOS`. Validates the device against `backend/data/ztcaDevices.json`. Unregistered or rogue devices (`isKnownDevice === false`) trigger an automatic **+25 risk penalty**.
+  - **Geographic Location**: Captures client coordinates (`lat`, `lng`), `city`, and `country`. Evaluates against known enterprise depots (e.g., San Francisco HQ, Chicago Hub). Foreign or unexpected locations (e.g., London, Moscow) trigger a **+20 location anomaly penalty**.
+  - **Temporal Context**: Analyzes transaction timestamps. Requests occurring outside standard working hours (between 11:00 PM and 05:00 AM) trigger a **+15 off-hours penalty** to protect against nocturnal dispatch hijacking.
+
+#### Element 3: Where is the connection going?
+* **Implementation**: `backend/ztca/middleware.ts` (`deriveRequiredPrivilege`)
+* **How it is Satisfied**:
+  - Instead of static access control lists, TransitOps dynamically derives the **Required Privilege** by inspecting the HTTP method and path:
+    - `/api/admin/*` $\to$ `ADMIN_POLICIES` (Restricted to Admin / Super User)
+    - `/api/trips` (POST/PUT/DELETE) $\to$ `DISPATCH_TRIP`
+    - `/api/vehicles` (POST/PUT/DELETE) $\to$ `WRITE_VEHICLES`
+    - `/api/drivers` (POST/PUT/DELETE) $\to$ `WRITE_DRIVERS`
+    - `/api/expenses`, `/api/fuel` (POST/PUT/DELETE) $\to$ `MANAGE_EXPENSES`
+    - Any `GET` request $\to$ `READ_OPERATIONS`
+  - Prevents vertical privilege escalation: If a `Driver` attempts an administrative or financial endpoint, the engine immediately applies a **+25 privilege mismatch penalty** (`rf_privilege_mismatch`).
+
+---
+
+### Section 2 — Control
+
+#### Element 4: Assess risk using context
+* **Implementation**: `backend/ztca/engine.ts` (`ZTCAEngine.evaluateRisk`)
+* **How it is Satisfied**:
+  - Continuously computes an aggregate risk score from **0 (Lowest)** to **100 (Critical)** per request.
+  - Multi-factor additive scoring model:
+    | Risk Factor Code | Rule Name | Score Weight | Trigger Condition |
+    |---|---|---|---|
+    | `rf_unknown_device` | Unrecognized Hardware Fingerprint | **+25** | Device ID not found in trusted registry |
+    | `rf_geo_anomaly` | Geographic Depot Anomaly | **+20** | Request originates outside verified depots |
+    | `rf_odd_hours` | Temporal Anomaly / Night Window | **+15** | Request between 11:00 PM and 05:00 AM |
+    | `rf_action_sensitivity` | High-Value Asset Sensitivity | **+15 to +20** | Modifying trips, vehicles, or ledger |
+    | `rf_privilege_mismatch` | Role vs. Action Incongruence | **+25** | Driver attempting administrative write |
+    | `rf_stepup_verified` | Multi-Factor Authentication Credit | **-30** | Verified temporary MFA/PIN session token |
+  - Compounding factors saturate up to a capped maximum of 100 points.
+
+#### Element 5: Prevent compromise
+* **Implementation**: `backend/ztca/store.ts` (`ZTCAPolicyRepository`), `src/components/StepUpModal.tsx`
+* **How it is Satisfied**:
+  - **Step-Up Verification Challenge**: When a Fleet Manager initiates a trip dispatch in an elevated context (Risk $> 40$), the PDP returns `STEP_UP`. The client triggers the `StepUpModal` prompting for a 6-digit MFA security PIN. Upon verification (`POST /api/ztca/verify-stepup`), an encrypted one-time token `x-ztca-stepup-token` is returned, dropping the risk score by 30 points and allowing the dispatch.
+  - **Compromised Device Isolation**: Administrators can flag or revoke devices from the Admin Panel. Revoked devices are prevented from making configuration changes (`pol_3_vehicle_driver_mod`).
+  - **Universal Threat Interceptor**: Any transaction reaching critical risk ($\ge 75$) is immediately intercepted and blocked (`pol_5_general_risk_cap`), stopping coordinated attacks before any backend logic runs.
+
+#### Element 6: Prevent data loss (DLP)
+* **Implementation**: `backend/ztca/store.ts` (`pol_4_financial_readonly`) & `backend/routes.ts`
+* **How it is Satisfied**:
+  - **Dynamic Read-Only Downgrade**: If an analyst or manager attempts financial modifications (expenses, fuel entries) with elevated risk ($> 45$), the PDP downgrades the operation to `READ_ONLY`. The backend intercepts destructive verbs (`POST`, `PUT`, `DELETE`) and returns an informative degradation response without corrupting or deleting financial ledgers.
+  - **Secure Document Handling**: The driver licensing portal converts sensitive PDF, PNG, and DOC licenses into sanitized base64 assets with client-side drag-and-drop verification, ensuring corrupt or non-whitelisted binaries cannot be executed.
+
+---
+
+### Section 3 — Enforce
+
+#### Element 7: Enforce policy
+* **Implementation**: `backend/ztca/engine.ts` (`ZTCAEngine.makeDecision`), `backend/ztca/middleware.ts`, `src/components/AdminPanel.tsx`
+* **How it is Satisfied**:
+  - **Deterministic Policy Decisions**: The Policy Decision Point (PDP) evaluates active rules in real time, yielding one of four explicit outcomes:
+    1. `ALLOW`: Risk is within permissible threshold; proceed to route execution.
+    2. `STEP_UP`: High-value operation in risky context; challenge user with MFA.
+    3. `READ_ONLY`: Downgrade destructive action to read-only mode to prevent data loss.
+    4. `BLOCK`: Hard rejection with HTTP 403 Forbidden and audit notification.
+  - **Immutable Audit Trail**: Every transaction (live or simulated) is permanently stored in `backend/data/ztcaAuditLogs.json` with timestamp, user ID, role, device posture, location, risk factor breakdown, decision, and triggered policy ID.
+  - **Real-Time Live Admin Dashboard**: The Security Admin panel monitors live events, visualizes KPIs (Total, Allowed, MFA Challenges, Read-Only Downgrades, Blocked, Average Risk), and allows administrators to adjust policy thresholds dynamically without server restarts.
+
+---
+
+## 4. End-to-End Operational Flows & Architecture Diagrams
+
+### Zero Trust Exchange Pipeline Diagram
+
+```mermaid
+flowchart TD
+    Client[Client App / API Consumer] -->|1. Request + Context Headers| PEP[Policy Enforcement Point - Middleware]
+    
+    subgraph ZT_Exchange [Zero Trust Exchange Architecture]
+        PEP -->|2. Extract Identity & Context| ContextBuilder[Context Builder]
+        ContextBuilder -->|User, Device, Geo, Time| RiskEngine[ZTCA Risk Engine]
+        
+        RiskEngine -->|Check Device Registry| DevStore[(Device Registry)]
+        RiskEngine -->|Check Depot Boundary| GeoStore[(Location Registry)]
+        RiskEngine -->|Calculate 0-100 Score| RiskScore[Composite Risk Score]
+        
+        RiskScore -->|3. Score + Privilege| PDP[Policy Decision Point]
+        PDP -->|Evaluate Active Rules| PolicyStore[(Policy Repository)]
+        
+        PDP -->|Decision: ALLOW / STEP_UP / READ_ONLY / BLOCK| Enforcer[Enforcement Handler]
+    end
+    
+    Enforcer -->|Log Event| AuditStore[(Immutable Audit Logs)]
+    AuditStore -.->|Broadcast Event| AdminUI[Security Admin Dashboard & Trust Center]
+    
+    Enforcer -->|ALLOW| AppService[TransitOps Fleet API Backend]
+    Enforcer -->|STEP_UP| MFAModal[Trigger MFA Challenge]
+    Enforcer -->|READ_ONLY| Degradation[Downgrade to Safe Inspection]
+    Enforcer -->|BLOCK| BlockResponse[HTTP 403 Access Denied]
+```
+
+---
+
+### Request Interception & Authorization Flow (Sequence)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Fleet Manager / Driver
+    participant App as React Frontend
+    participant MW as ZTCA Middleware (PEP)
+    participant Engine as ZTCA Engine (PDP)
+    participant Store as Audit & Policy Store
+    participant API as Fleet Controller Backend
+
+    User->>App: Submits Trip Dispatch / Fleet Change
+    App->>MW: POST /api/trips (Headers: Device, Geo, Role, Token)
+    MW->>MW: Derive Required Privilege (DISPATCH_TRIP)
+    MW->>Engine: evaluateRisk(context)
+    Engine->>Engine: Calculate Factor Scores (Device + Geo + OddHours + Privilege)
+    Engine-->>MW: Risk Evaluation (Total Score = 65, Factors Breakdown)
+    MW->>Engine: makeDecision(context, riskEvaluation)
+    Engine->>Store: Match Active Policies (pol_2_dispatch_stepup: maxRisk=40)
+    Engine-->>MW: Decision: STEP_UP (MFA Required)
+    MW->>Store: ztcaAuditRepo.log(event)
+    MW-->>App: HTTP 403 { ztcaDecision: "STEP_UP", reason: "MFA required for high risk" }
+    App->>User: Displays StepUpModal (Enter 6-Digit PIN)
+    User->>App: Enters Security PIN
+    App->>MW: POST /api/ztca/verify-stepup { pin: "123456" }
+    MW-->>App: 200 OK { stepupToken: "v_token_xyz" }
+    App->>MW: Retry POST /api/trips (Header: x-ztca-stepup-token)
+    MW->>Engine: evaluateRisk() -> Credit Applied (-30 points) -> New Score = 35
+    Engine-->>MW: Decision: ALLOW
+    MW->>API: Execute dispatchTrip()
+    API-->>App: 201 Created { tripId: "t_101", status: "Dispatched" }
+    App->>User: Operational Confirmation & Success Toast
+```
+
+---
+
+### Role-to-Privilege Mapping & Access Matrix
+
+| Operational Resource | Required Privilege | Admin | Fleet Manager | Driver | Safety Officer | Financial Analyst |
+|---|---|:---:|:---:|:---:|:---:|:---:|
+| **Security Policies & Audit Logs** | `ADMIN_POLICIES` | 🟢 **ALLOW** | 🔴 **BLOCK** | 🔴 **BLOCK** | 🔴 **BLOCK** | 🔴 **BLOCK** |
+| **Fleet Vehicles (Create / Delete)** | `WRITE_VEHICLES` | 🟡 **COND** | 🟡 **COND** | 🔴 **BLOCK** | 🔴 **BLOCK** | 🔴 **BLOCK** |
+| **Driver Registration & Compliance** | `WRITE_DRIVERS` | 🟢 **ALLOW** | 🟡 **COND** | 🔴 **BLOCK** | 🟡 **COND** | 🔴 **BLOCK** |
+| **Trip Dispatch & Route Allocation** | `DISPATCH_TRIP` | 🟡 **STEP_UP** | 🟡 **STEP_UP** | 🔴 **BLOCK** | 🔴 **BLOCK** | 🔴 **BLOCK** |
+| **Financial Ledger & Fuel Logs** | `MANAGE_EXPENSES`| 🟢 **ALLOW** | 🔴 **BLOCK** | 🟡 **DOWNGRADE**| 🔴 **BLOCK** | 🟡 **DOWNGRADE**|
+| **Fleet & Operations Read Access** | `READ_OPERATIONS` | 🟢 **ALLOW** | 🟢 **ALLOW** | 🟢 **ALLOW** | 🟢 **ALLOW** | 🟢 **ALLOW** |
+
+*Legend*:
+* 🟢 **ALLOW**: Unrestricted under normal low-risk context.
+* 🟡 **COND / STEP_UP / DOWNGRADE**: Allowed conditionally, subject to verified hardware, location check, MFA verification, or read-only safety downgrade.
+* 🔴 **BLOCK**: Strictly denied under Least-Privilege enforcement and privilege mismatch detection.
+
+---
+
+### Step-Up MFA & Threat Interception Flow
+
+```
+   Incoming Request Context
+             │
+             ▼
+   Calculate Composite Risk (0 - 100)
+             │
+             ├─────────────────────────────────────────┐
+             │                                         │
+       Risk Score < 40                        Risk Score ≥ 75 (Critical)
+             │                                         │
+             ▼                                         ▼
+      Decision: ALLOW                           Decision: BLOCK
+    Execute Action Immediately                Halt Request Immediately
+                                              Log to Audit with Alert Badge
+             │
+       40 ≤ Risk < 75
+             │
+             ▼
+   Is Action Sensitive? (Dispatch / Financial Write)
+             │
+             ├──────────────────────┬──────────────────────┐
+             ▼                      ▼                      ▼
+        Trip Dispatch         Expense Write           Other Write
+             │                      │                      │
+             ▼                      ▼                      ▼
+     Decision: STEP_UP     Decision: READ_ONLY       Decision: BLOCK
+     Challenge User for    Downgrade Operation       Device / Geo Untrusted
+     6-Digit PIN Token     Preserve Ledger State     Access Denied
+```
+
+---
+
+## 5. Recent Platform Updates & New Features
+
+TransitOps includes major architectural and presentation updates:
+
+1. **Trust Center View (`src/components/TrustCenter.tsx`)**:
+   - Built-in live dashboard accessible to all users via the main navigation.
+   - Interactive capability and permission matrix dynamically showing `ALLOWED`, `RESTRICTED`, or `CONDITIONAL` outcomes for each role.
+   - Live inspection panel breaking down the 7 ZTCA policy implementations, risk rule weights, and architectural justifications.
+   - One-click **Download Architecture & ZTCA Guide** button.
+
+2. **Project Overview Modal ("About TransitOps and ZTCA") (`src/components/ProjectOverview.tsx`)**:
+   - Available directly on the login screen prior to authentication.
+   - Explains the 4-phase continuous authorization cycle (Request, Context Build, Risk Score, Policy Decision) and the 6 user roles to stakeholders and evaluators.
+
+3. **Drag-and-Drop Driver Credential & License Uploader (`src/components/Drivers.tsx`)**:
+   - Replaced static text fields with an interactive file upload zone supporting PDFs, PNGs, and DOCs with automatic base64 encoding and preview badges.
+   - Auto-generates compliant license numbers (`DL-<timestamp>-<hash>`) if left blank to prevent onboarding bottlenecks.
+   - Extended driver fields: experience years, city territory, vehicle specializations, and mode of work.
+
+4. **Express 5 & Type-Safe Unified Auditing**:
+   - Audits across device status changes, policy edits, and driver state transitions now enforce the unified `UserRole` type including the `'System'` actor.
+   - Full compatibility with Express 5 wildcard routing and robust container ingress.
+
+5. **Direct Architecture Download API**:
+   - `GET /api/readme` provides instant attachment download of this comprehensive Markdown guide from any browser or curl command.
+
+---
+
+## 6. API Route Specifications & Privilege Mapping
+
+| Endpoint | Method | Required Privilege | Default Risk Policy | Description |
+|---|---|---|---|---|
+| `/api/vehicles` | `GET` | `READ_OPERATIONS` | Risk Cap (75) | List all fleet vehicles and statuses |
+| `/api/vehicles` | `POST` | `WRITE_VEHICLES` | Mod Protection (50) | Add new vehicle to fleet |
+| `/api/vehicles/:id` | `DELETE` | `WRITE_VEHICLES` | Mod Protection (50) | Decommission or retire vehicle |
+| `/api/drivers` | `GET` | `READ_OPERATIONS` | Risk Cap (75) | List registered drivers and scores |
+| `/api/drivers` | `POST` | `WRITE_DRIVERS` | Mod Protection (50) | Register driver with upload credentials |
+| `/api/trips` | `GET` | `READ_OPERATIONS` | Risk Cap (75) | View active and historical trips |
+| `/api/trips` | `POST` | `DISPATCH_TRIP` | Dispatch Step-Up (40)| Dispatch cargo trip (Requires MFA if risky) |
+| `/api/expenses` | `POST` | `MANAGE_EXPENSES` | Financial Downgrade (45)| Post fuel or repair ledger expense |
+| `/api/admin/policies` | `PUT` | `ADMIN_POLICIES` | Admin Lockdown (30) | Update risk thresholds and actions |
+| `/api/admin/devices` | `PATCH` | `ADMIN_POLICIES` | Admin Lockdown (30) | Trust, flag, or revoke hardware device |
+| `/api/ztca/verify-stepup` | `POST` | `READ_OPERATIONS` | None (Auth Token) | Verify 6-digit MFA security PIN |
+| `/api/ztca/simulation/context-check` | `POST` | `READ_OPERATIONS` | Simulation | Test hypothetical context against engine |
+| `/api/readme` | `GET` | None (Public) | None | Download this complete README guide |
+
+---
+
+## 7. Deployable Setup & Installation Guide
+
+### Prerequisites
+- **Node.js**: v18.0.0 or higher (v20+ recommended)
+- **npm**: v9.0.0 or higher
+
+### 1. Installation
+Clone the repository and install all dependencies:
+```bash
+git clone https://github.com/vizm3/transitops_ztca-main.git
+cd transitops_ztca-main
+npm install
+```
+
+### 2. Environment Variables
+Copy `.env.example` to `.env`:
+```bash
+cp .env.example .env
+```
+Default configuration parameters:
+```env
+# GEMINI_API_KEY: Optional key for generative AI features
+GEMINI_API_KEY=""
+
+# APP_URL: Base URL for deployment environment
+APP_URL="http://localhost:3000"
+```
+
+### 3. Running in Development Mode
+Launch the unified full-stack server (Express backend + Vite middleware on Port 3000):
+```bash
+npm run dev
+```
+Open your browser at: `http://localhost:3000`
+
+### 4. Production Build & Deployment
+TransitOps compiles into a bundled, single-file server to ensure zero module-resolution friction in Cloud Run or container environments:
+```bash
+npm run build
+```
+This triggers:
+1. `vite build` $\to$ Generates optimized static assets in `dist/`.
+2. `esbuild server.ts` $\to$ Bundles the Express server into `dist/server.cjs` with externalized packages.
+
+To start the production server:
+```bash
+npm start
+```
+
+### 5. Running Security Simulations via CLI
+You can test the ZTCA engine directly from your terminal to observe risk scoring and policy decisions:
+
+**Simulate High-Risk Rogue Action (Geo-Anomaly + Unknown Device + Driver Mismatch):**
+```bash
+curl -s -X POST http://localhost:3000/api/ztca/simulation/context-check \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userId": "u_rogue_driver",
+    "userName": "Untrusted Driver",
+    "userEmail": "driver@untrusted.net",
+    "userRole": "Driver",
+    "deviceId": "dev-unknown-999",
+    "deviceBrowser": "Tor Browser",
+    "deviceOS": "Unknown Linux",
+    "lat": 55.7558,
+    "lng": 37.6173,
+    "city": "Moscow",
+    "country": "Russia",
+    "isOddHours": true,
+    "endpoint": "/api/admin/policies",
+    "method": "PUT",
+    "actionName": "Attempt Policy Tampering"
+  }' | jq
+```
+*Expected Decision*: `BLOCK` with Risk Score `100/100` and `SIMULATION_FORCED_BLOCK` recorded in audit logs.
+
+**Download Architecture Guide via CLI:**
+```bash
+curl -OJ http://localhost:3000/api/readme
+```
+
+---
+
+### Security Architecture Summary
+TransitOps proves that enterprise logistics and Zero Trust can coexist without compromising operational speed. By measuring risk continuously across **Identity**, **Device Attributes**, **Geolocation**, **Temporal Windows**, and **Resource Sensitivity**, TransitOps guarantees that every operational action is justified, verified, and audited.
