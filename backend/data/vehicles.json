@@ -1,0 +1,68 @@
+[
+  {
+    "id": "v1",
+    "registrationNumber": "Van-05",
+    "name": "Ford Transit 350",
+    "type": "Van",
+    "maxLoadCapacity": 1200,
+    "odometer": 45200,
+    "acquisitionCost": 38000,
+    "status": "Available",
+    "region": "North"
+  },
+  {
+    "id": "v2",
+    "registrationNumber": "Trk-12",
+    "name": "Freightliner M2",
+    "type": "Truck",
+    "maxLoadCapacity": 8000,
+    "odometer": 124800,
+    "acquisitionCost": 85000,
+    "status": "On Trip",
+    "region": "East"
+  },
+  {
+    "id": "v3",
+    "registrationNumber": "Ref-02",
+    "name": "Isuzu NPR Reefer",
+    "type": "Reefer",
+    "maxLoadCapacity": 4500,
+    "odometer": 68100,
+    "acquisitionCost": 62000,
+    "status": "Available",
+    "region": "West"
+  },
+  {
+    "id": "v4",
+    "registrationNumber": "Van-08",
+    "name": "Mercedes Sprinter",
+    "type": "Van",
+    "maxLoadCapacity": 1500,
+    "odometer": 92300,
+    "acquisitionCost": 42000,
+    "status": "Available",
+    "region": "South"
+  },
+  {
+    "id": "v5",
+    "registrationNumber": "Sdn-03",
+    "name": "Toyota Prius Fleet",
+    "type": "Sedan",
+    "maxLoadCapacity": 400,
+    "odometer": 185000,
+    "acquisitionCost": 24000,
+    "status": "Retired",
+    "region": "North"
+  },
+  {
+    "registrationNumber": "Van-54",
+    "name": "Crux",
+    "type": "Van",
+    "maxLoadCapacity": 1200,
+    "odometer": 3450,
+    "acquisitionCost": 23,
+    "status": "Available",
+    "region": "North",
+    "id": "v_1788345959186_905"
+  }
+]

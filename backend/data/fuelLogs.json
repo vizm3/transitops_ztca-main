@@ -1,0 +1,56 @@
+[
+  {
+    "id": "f1",
+    "vehicleId": "v1",
+    "liters": 45,
+    "cost": 65.5,
+    "date": "2026-07-01",
+    "odometer": 44100
+  },
+  {
+    "id": "f2",
+    "vehicleId": "v1",
+    "liters": 42,
+    "cost": 61.2,
+    "date": "2026-07-08",
+    "odometer": 45200
+  },
+  {
+    "id": "f3",
+    "vehicleId": "v3",
+    "liters": 120,
+    "cost": 185,
+    "date": "2026-07-05",
+    "odometer": 67100
+  },
+  {
+    "vehicleId": "v3",
+    "liters": 40,
+    "cost": 60,
+    "date": "2026-08-25",
+    "odometer": 68100,
+    "driverId": "d2",
+    "purpose": "On Trip",
+    "id": "f_1787674547297_187"
+  },
+  {
+    "vehicleId": "v_1788345959186_905",
+    "liters": 43,
+    "cost": 43,
+    "date": "2026-09-02",
+    "odometer": 3000,
+    "driverId": "d1",
+    "purpose": "Trip Delivery",
+    "id": "f_1788346221734_526"
+  },
+  {
+    "vehicleId": "v_1788345959186_905",
+    "liters": 40,
+    "cost": 60,
+    "date": "2026-09-02",
+    "odometer": 3450,
+    "driverId": "d_1788345827431_811",
+    "purpose": "On Trip",
+    "id": "f_1788346509582_778"
+  }
+]

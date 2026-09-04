@@ -1,0 +1,54 @@
+[
+  {
+    "id": "pol_1_admin_protection",
+    "name": "Super User / Admin Area Lockdown",
+    "description": "Restricts ZTCA Admin Panel and policy modifications strictly to the Admin / Super User role. Any unauthorized attempt is immediately BLOCKED.",
+    "enabled": true,
+    "targetRole": "ALL",
+    "targetEndpointPattern": "/api/admin",
+    "maxAllowedRisk": 30,
+    "actionIfViolated": "BLOCK"
+  },
+  {
+    "id": "pol_2_dispatch_stepup",
+    "name": "High Risk Dispatch & Trip Scheduling Safeguard",
+    "description": "Requires Step-Up verification (MFA/Pin) if dispatching or modifying trips when context risk score exceeds 40.",
+    "enabled": true,
+    "targetRole": "ALL",
+    "targetEndpointPattern": "/api/trips",
+    "maxAllowedRisk": 40,
+    "requireKnownDevice": true,
+    "actionIfViolated": "STEP_UP"
+  },
+  {
+    "id": "pol_3_vehicle_driver_mod",
+    "name": "Fleet Configuration Change Protection",
+    "description": "Blocks modifying or deleting vehicle and driver records from unknown devices or unauthorized locations if risk score exceeds 50.",
+    "enabled": true,
+    "targetRole": "ALL",
+    "targetEndpointPattern": "/api/(vehicles|drivers)",
+    "maxAllowedRisk": 50,
+    "requireKnownDevice": true,
+    "actionIfViolated": "BLOCK"
+  },
+  {
+    "id": "pol_4_financial_readonly",
+    "name": "Financial Expenses Read-Only Downgrade",
+    "description": "Downgrades expense modifications to Read-Only mode if user context exhibits medium-high risk (risk > 45).",
+    "enabled": true,
+    "targetRole": "ALL",
+    "targetEndpointPattern": "/api/expenses",
+    "maxAllowedRisk": 45,
+    "actionIfViolated": "READ_ONLY"
+  },
+  {
+    "id": "pol_5_general_risk_cap",
+    "name": "Universal Critical Threat Interceptor",
+    "description": "Automatically blocks any API request across TransitOps if total calculated context risk score reaches Critical level (>= 75).",
+    "enabled": true,
+    "targetRole": "ALL",
+    "targetEndpointPattern": ".*",
+    "maxAllowedRisk": 75,
+    "actionIfViolated": "BLOCK"
+  }
+]

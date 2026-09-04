@@ -1,0 +1,35 @@
+[
+  {
+    "id": "dev_mgr_mac",
+    "userId": "u1",
+    "fingerprint": "dev-macbook-pro-sf-hq",
+    "deviceName": "Fleet HQ Workstation (MacBook Pro)",
+    "browser": "Chrome 124",
+    "os": "macOS Sonoma",
+    "addedAt": "2026-07-26T15:55:30.541Z",
+    "lastUsed": "2026-09-04T05:47:21.332Z",
+    "status": "TRUSTED"
+  },
+  {
+    "id": "dev_admin_workstation",
+    "userId": "u0",
+    "fingerprint": "dev-admin-secure-terminal",
+    "deviceName": "ZTCA Admin Master Workstation",
+    "browser": "Chrome 125",
+    "os": "macOS Sequoia",
+    "addedAt": "2026-06-26T15:55:30.542Z",
+    "lastUsed": "2026-08-25T15:55:30.542Z",
+    "status": "TRUSTED"
+  },
+  {
+    "id": "dev_drv_pad",
+    "userId": "u2",
+    "fingerprint": "dev-ipad-cab-terminal",
+    "deviceName": "Cab Fleet Tablet",
+    "browser": "Safari Mobile",
+    "os": "iOS 17",
+    "addedAt": "2026-08-10T15:55:30.542Z",
+    "lastUsed": "2026-08-25T15:55:30.542Z",
+    "status": "TRUSTED"
+  }
+]

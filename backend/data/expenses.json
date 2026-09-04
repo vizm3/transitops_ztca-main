@@ -1,0 +1,65 @@
+[
+  {
+    "id": "e1",
+    "vehicleId": "v1",
+    "tripId": "t2",
+    "category": "Toll",
+    "cost": 24,
+    "date": "2026-07-08",
+    "description": "Dallas-Houston Turnpike Toll"
+  },
+  {
+    "id": "e2",
+    "vehicleId": "v2",
+    "category": "Insurance",
+    "cost": 320,
+    "date": "2026-07-01",
+    "description": "Monthly Fleet Commercial Liability Premium"
+  },
+  {
+    "id": "e3",
+    "vehicleId": "v3",
+    "tripId": "t1",
+    "category": "Permit",
+    "cost": 150,
+    "date": "2026-07-10",
+    "description": "Interstate Oversized Load Transit Permit"
+  },
+  {
+    "vehicleId": "v3",
+    "tripId": "t1",
+    "category": "Fuel",
+    "cost": 60,
+    "date": "2026-08-25",
+    "description": "Trip #t1 final fuel consumption (40L)",
+    "creatorRole": "Sarah Jenkins",
+    "id": "e_1787674547298_246"
+  },
+  {
+    "vehicleId": "v_1788345959186_905",
+    "category": "Fuel",
+    "cost": 43,
+    "date": "2026-09-02",
+    "description": "Logged 43L of fuel at odometer 3000 km",
+    "creatorRole": "Alex Carter",
+    "id": "e_1788346221734_649"
+  },
+  {
+    "vehicleId": "v4",
+    "category": "Maintenance",
+    "cost": 450,
+    "date": "2026-09-02",
+    "description": "Closed maintenance #m1: Brake pad replacement and wheel alignment",
+    "id": "e_1788346382350_340"
+  },
+  {
+    "vehicleId": "v_1788345959186_905",
+    "tripId": "t_1788346027859_196",
+    "category": "Fuel",
+    "cost": 60,
+    "date": "2026-09-02",
+    "description": "Trip #t_1788346027859_196 final fuel consumption (40L)",
+    "creatorRole": "Sarah Jenkins",
+    "id": "e_1788346509583_5"
+  }
+]

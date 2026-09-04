@@ -1,0 +1,111 @@
+[
+  {
+    "id": "t1",
+    "source": "Warehouse A (Chicago)",
+    "destination": "Retail Hub (Detroit)",
+    "vehicleId": "v3",
+    "driverId": "d2",
+    "cargoWeight": 3500,
+    "plannedDistance": 450,
+    "status": "Completed",
+    "odometerStart": 67650,
+    "createdAt": "2026-07-10T08:00:00.000Z",
+    "odometerEnd": 68100,
+    "fuelConsumed": 40,
+    "completedAt": "2026-08-25T16:15:47.303Z",
+    "logs": [
+      {
+        "timestamp": "2026-08-25T16:15:47.303Z",
+        "status": "Completed",
+        "note": "Safe arrival recorded at destination. Fuel used: 40L.",
+        "location": "Retail Hub (Detroit)"
+      }
+    ]
+  },
+  {
+    "id": "t2",
+    "source": "Distribution Center (Dallas)",
+    "destination": "Depot (Houston)",
+    "vehicleId": "v1",
+    "driverId": "d1",
+    "cargoWeight": 800,
+    "plannedDistance": 380,
+    "status": "Completed",
+    "odometerStart": 44820,
+    "odometerEnd": 45200,
+    "fuelConsumed": 42,
+    "createdAt": "2026-07-08T09:30:00.000Z",
+    "completedAt": "2026-07-08T15:45:00.000Z"
+  },
+  {
+    "id": "t3",
+    "source": "Port of Seattle",
+    "destination": "Logistics Yard (Spokane)",
+    "vehicleId": "v2",
+    "driverId": "d3",
+    "cargoWeight": 7500,
+    "plannedDistance": 460,
+    "status": "Draft",
+    "odometerStart": 124800,
+    "createdAt": "2026-07-11T14:15:00.000Z"
+  },
+  {
+    "source": "Depot",
+    "destination": "warehouse",
+    "vehicleId": "v2",
+    "driverId": "d1",
+    "cargoWeight": 123,
+    "plannedDistance": 344,
+    "status": "Dispatched",
+    "odometerStart": 124800,
+    "tripType": "Per Trip",
+    "paymentStatus": "Pending",
+    "logs": [
+      {
+        "timestamp": "2026-08-25T16:18:54.493Z",
+        "status": "Draft",
+        "note": "Trip created in Draft state.",
+        "location": "Depot"
+      },
+      {
+        "timestamp": "2026-08-25T16:19:35.692Z",
+        "status": "Dispatched",
+        "note": "Driver dispatched on active route.",
+        "location": "Depot"
+      }
+    ],
+    "id": "t_1787674734494_269",
+    "createdAt": "2026-08-25T16:18:54.494Z"
+  },
+  {
+    "source": "chennai",
+    "destination": "hyderabad",
+    "vehicleId": "v_1788345959186_905",
+    "driverId": "d_1788345827431_811",
+    "cargoWeight": 1000,
+    "plannedDistance": 450,
+    "status": "Completed",
+    "odometerStart": 3000,
+    "tripType": "Per Trip",
+    "paymentStatus": "Pending",
+    "logs": [
+      {
+        "timestamp": "2026-09-02T10:47:07.859Z",
+        "status": "Dispatched",
+        "note": "Trip created in Dispatched state.",
+        "location": "chennai"
+      },
+      {
+        "timestamp": "2026-09-02T10:55:09.583Z",
+        "status": "Completed",
+        "note": "Safe arrival recorded at destination. Fuel used: 40L.",
+        "location": "hyderabad"
+      }
+    ],
+    "id": "t_1788346027859_196",
+    "createdAt": "2026-09-02T10:47:07.859Z",
+    "odometerEnd": 3450,
+    "fuelConsumed": 40,
+    "completedAt": "2026-09-02T10:55:09.583Z"
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "m1",
+    "vehicleId": "v4",
+    "description": "Brake pad replacement and wheel alignment",
+    "cost": 450,
+    "startDate": "2026-07-09",
+    "status": "Closed",
+    "endDate": "2026-09-02"
+  },
+  {
+    "id": "m2",
+    "vehicleId": "v1",
+    "description": "Routine oil change and fluid top-up",
+    "cost": 85,
+    "startDate": "2026-06-15",
+    "endDate": "2026-06-15",
+    "status": "Closed"
+  },
+  {
+    "id": "m3",
+    "vehicleId": "v2",
+    "description": "Transmission diagnostic and fluid flush",
+    "cost": 1200,
+    "startDate": "2026-05-20",
+    "endDate": "2026-05-22",
+    "status": "Closed"
+  }
+]

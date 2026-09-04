@@ -1,0 +1,314 @@
+[
+  {
+    "id": "al1",
+    "action": "Registered new vehicle Ford Transit 350 (Van-05).",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-07-01T09:15:00.000Z"
+  },
+  {
+    "id": "al2",
+    "action": "Dispatched Trip t2 to Driver Alex Carter using vehicle Van-05.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-07-08T09:30:00.000Z"
+  },
+  {
+    "id": "al3",
+    "action": "Completed Trip t2, updated odometer to 45,200 km, logged 42L fuel.",
+    "user": "Alex Carter",
+    "timestamp": "2026-07-08T15:45:00.000Z"
+  },
+  {
+    "id": "al4",
+    "action": "Created maintenance entry m1 for vehicle Van-08. Status set to In Shop.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-07-09T10:30:00.000Z"
+  },
+  {
+    "id": "al_1783856407029_165",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-07-12T11:40:07.029Z"
+  },
+  {
+    "id": "al_1783856427979_982",
+    "action": "User Alex Carter logged in.",
+    "user": "Alex Carter",
+    "timestamp": "2026-07-12T11:40:27.979Z"
+  },
+  {
+    "id": "al_1787673403356_605",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T15:56:43.356Z"
+  },
+  {
+    "id": "al_1787674332645_120",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-08-25T16:12:12.645Z"
+  },
+  {
+    "id": "al_1787674365476_163",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:12:45.476Z"
+  },
+  {
+    "id": "al_1787674391598_821",
+    "action": "Updated driver profile for Michael Miller.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:13:11.598Z"
+  },
+  {
+    "id": "al_1787674427669_580",
+    "action": "Updated driver profile for Michael Miller.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:13:47.669Z"
+  },
+  {
+    "id": "al_1787674467838_98",
+    "action": "Updated driver profile for Michael Miller.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:14:27.838Z"
+  },
+  {
+    "id": "al_1787674547301_744",
+    "action": "Completed trip #t1 to Retail Hub (Detroit). Updated odometer to 68100 km, fuel consumed 40L.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:15:47.302Z"
+  },
+  {
+    "id": "al_1787674734496_954",
+    "action": "Created draft trip from Depot to warehouse.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:18:54.496Z"
+  },
+  {
+    "id": "al_1787674775691_80",
+    "action": "Dispatched trip #t_1787674734494_269 to Alex Carter with vehicle Trk-12.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:19:35.691Z"
+  },
+  {
+    "id": "al_1787674937652_302",
+    "action": "User David Miller logged in.",
+    "user": "David Miller",
+    "timestamp": "2026-08-25T16:22:17.653Z"
+  },
+  {
+    "id": "al_1787674967067_498",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-08-25T16:22:47.067Z"
+  },
+  {
+    "id": "al_1787675748149_781",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-08-25T16:35:48.149Z"
+  },
+  {
+    "id": "al_1787675879602_123",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-08-25T16:37:59.602Z"
+  },
+  {
+    "id": "al_1787675883749_124",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:38:03.749Z"
+  },
+  {
+    "id": "al_1787675906576_912",
+    "action": "Updated driver profile for Robert Chen.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:38:26.576Z"
+  },
+  {
+    "id": "al_1787675916254_635",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-08-25T16:38:36.254Z"
+  },
+  {
+    "id": "al_1787676938303_659",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:55:38.303Z"
+  },
+  {
+    "id": "al_1787676982990_71",
+    "action": "Deleted driver Robert Chen.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-08-25T16:56:22.990Z"
+  },
+  {
+    "id": "al_1787677001360_314",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-08-25T16:56:41.360Z"
+  },
+  {
+    "id": "al_1787677656538_20",
+    "action": "User Alex Carter logged in.",
+    "user": "Alex Carter",
+    "timestamp": "2026-08-25T17:07:36.538Z"
+  },
+  {
+    "id": "al_1787678219072_103",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-08-25T17:16:59.072Z"
+  },
+  {
+    "id": "al_1787679389825_755",
+    "action": "User Alex Carter logged in.",
+    "user": "Alex Carter",
+    "timestamp": "2026-08-25T17:36:29.825Z"
+  },
+  {
+    "id": "al_1787679421598_324",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-08-25T17:37:01.598Z"
+  },
+  {
+    "id": "al_1787679734185_963",
+    "action": "User Carlos Mendez logged in.",
+    "user": "Carlos Mendez",
+    "timestamp": "2026-08-25T17:42:14.185Z"
+  },
+  {
+    "id": "al_1788324557291_147",
+    "action": "User Alex Carter logged in.",
+    "user": "Alex Carter",
+    "timestamp": "2026-09-02T04:49:17.291Z"
+  },
+  {
+    "id": "al_1788324683958_764",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-09-02T04:51:23.958Z"
+  },
+  {
+    "id": "al_1788344284723_375",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-09-02T10:18:04.723Z"
+  },
+  {
+    "id": "al_1788344360700_573",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-02T10:19:20.700Z"
+  },
+  {
+    "id": "al_1788344859019_103",
+    "action": "Registered driver Test Driver (AS-332224).",
+    "user": "Fleet Manager",
+    "timestamp": "2026-09-02T10:27:39.019Z"
+  },
+  {
+    "id": "al_1788345827434_511",
+    "action": "Registered driver Jane Smith (DL-2026002).",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-02T10:43:47.434Z"
+  },
+  {
+    "id": "al_1788345866722_248",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-09-02T10:44:26.722Z"
+  },
+  {
+    "id": "al_1788345959186_599",
+    "action": "Registered vehicle Crux (Van-54).",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-02T10:45:59.186Z"
+  },
+  {
+    "id": "al_1788346027861_323",
+    "action": "Dispatched trip from chennai to hyderabad using Van-54 with driver Jane Smith.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-02T10:47:07.861Z"
+  },
+  {
+    "id": "al_1788346084531_127",
+    "action": "User Alex Carter logged in.",
+    "user": "Alex Carter",
+    "timestamp": "2026-09-02T10:48:04.531Z"
+  },
+  {
+    "id": "al_1788346221734_240",
+    "action": "Logged fuel for vehicle Van-54: 43L, Cost: $43.",
+    "user": "Alex Carter",
+    "timestamp": "2026-09-02T10:50:21.734Z"
+  },
+  {
+    "id": "al_1788346382351_925",
+    "action": "Closed maintenance record #m1 for vehicle. Status restored to Available.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-02T10:53:02.351Z"
+  },
+  {
+    "id": "al_1788346509583_907",
+    "action": "Completed trip #t_1788346027859_196 to hyderabad. Updated odometer to 3450 km, fuel consumed 40L.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-02T10:55:09.583Z"
+  },
+  {
+    "id": "al_1788346536012_699",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-09-02T10:55:36.012Z"
+  },
+  {
+    "id": "al_1788346600077_395",
+    "action": "Updated driver profile for James Henderson.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-02T10:56:40.077Z"
+  },
+  {
+    "id": "al_1788455081359_210",
+    "action": "User Alex Carter logged in.",
+    "user": "Alex Carter",
+    "timestamp": "2026-09-03T17:04:41.359Z"
+  },
+  {
+    "id": "al_1788455378567_50",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-09-03T17:09:38.567Z"
+  },
+  {
+    "id": "al_1788455398172_267",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-03T17:09:58.172Z"
+  },
+  {
+    "id": "al_1788455490185_592",
+    "action": "User Alex Carter logged in.",
+    "user": "Alex Carter",
+    "timestamp": "2026-09-03T17:11:30.185Z"
+  },
+  {
+    "id": "al_1788455746850_910",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-03T17:15:46.851Z"
+  },
+  {
+    "id": "al_1788500758655_669",
+    "action": "User Sarah Jenkins logged in.",
+    "user": "Sarah Jenkins",
+    "timestamp": "2026-09-04T05:45:58.655Z"
+  },
+  {
+    "id": "al_1788500801416_35",
+    "action": "User ZTCA Admin (Super User) logged in.",
+    "user": "ZTCA Admin (Super User)",
+    "timestamp": "2026-09-04T05:46:41.416Z"
+  }
+]

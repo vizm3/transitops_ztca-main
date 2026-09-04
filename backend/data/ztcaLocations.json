@@ -1,0 +1,32 @@
+[
+  {
+    "id": "loc_sf_hq",
+    "userId": "u1",
+    "city": "San Francisco",
+    "country": "United States",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "label": "TransitOps Central HQ",
+    "status": "TRUSTED"
+  },
+  {
+    "id": "loc_admin_hq",
+    "userId": "u0",
+    "city": "San Francisco",
+    "country": "United States",
+    "lat": 37.7749,
+    "lng": -122.4194,
+    "label": "Security Operations Center",
+    "status": "TRUSTED"
+  },
+  {
+    "id": "loc_chi_hub",
+    "userId": "u1",
+    "city": "Chicago",
+    "country": "United States",
+    "lat": 41.8781,
+    "lng": -87.6298,
+    "label": "Midwest Distribution Depot",
+    "status": "TRUSTED"
+  }
+]

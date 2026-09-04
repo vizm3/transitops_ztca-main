@@ -1,0 +1,30 @@
+[
+  {
+    "id": "n1",
+    "type": "License Expiry",
+    "message": "Driver Robert Chen's license (DL-8271034) expired on 2026-06-30.",
+    "date": "2026-07-01T08:00:00.000Z",
+    "resolved": false
+  },
+  {
+    "id": "n2",
+    "type": "License Expiry",
+    "message": "Driver James Henderson's license (DL-1184930) is expiring soon on 2026-07-20.",
+    "date": "2026-07-05T08:00:00.000Z",
+    "resolved": false
+  },
+  {
+    "id": "n3",
+    "type": "Maintenance Due",
+    "message": "Vehicle Mercedes Sprinter (Van-08) brake replacement is active.",
+    "date": "2026-07-09T10:30:00.000Z",
+    "resolved": false
+  },
+  {
+    "type": "License Expiry",
+    "message": "Driver Michael Miller's license (DL-7729103) expired on 2025-12-31.",
+    "id": "n_1783856407120_950",
+    "date": "2026-07-12T11:40:07.120Z",
+    "resolved": false
+  }
+]

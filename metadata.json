@@ -1,0 +1,6 @@
+{
+  "name": "TransitOps",
+  "description": "Smart Transport Operations Platform with Zero Trust Continuous Authorization (ZTCA) Security Engine for real-time risk scoring, device fingerprinting, geo-location checks, policy enforcement, and live admin audit dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

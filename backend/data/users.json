@@ -1,0 +1,65 @@
+[
+  {
+    "id": "u1",
+    "name": "Sarah Jenkins",
+    "email": "manager@transitops.com",
+    "password": "manager123",
+    "role": "Fleet Manager"
+  },
+  {
+    "id": "u1_2",
+    "name": "David Miller",
+    "email": "manager2@transitops.com",
+    "password": "manager123",
+    "role": "Fleet Manager"
+  },
+  {
+    "id": "u2",
+    "name": "Alex Carter",
+    "email": "driver@transitops.com",
+    "password": "driver123",
+    "role": "Driver"
+  },
+  {
+    "id": "u2_2",
+    "name": "Carlos Mendez",
+    "email": "driver2@transitops.com",
+    "password": "driver123",
+    "role": "Driver"
+  },
+  {
+    "id": "u3",
+    "name": "Marcus Vance",
+    "email": "safety@transitops.com",
+    "password": "safety123",
+    "role": "Safety Officer"
+  },
+  {
+    "id": "u3_2",
+    "name": "Rachel Chen",
+    "email": "safety2@transitops.com",
+    "password": "safety123",
+    "role": "Safety Officer"
+  },
+  {
+    "id": "u4",
+    "name": "Elena Rostova",
+    "email": "finance@transitops.com",
+    "password": "finance123",
+    "role": "Financial Analyst"
+  },
+  {
+    "id": "u4_2",
+    "name": "Robert Sterling",
+    "email": "finance2@transitops.com",
+    "password": "finance123",
+    "role": "Financial Analyst"
+  },
+  {
+    "id": "u0",
+    "name": "ZTCA Admin (Super User)",
+    "email": "admin@transitops.com",
+    "password": "admin123",
+    "role": "Admin"
+  }
+]
